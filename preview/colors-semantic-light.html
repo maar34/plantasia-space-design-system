@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #fff; font-family: 'Inter', sans-serif; padding: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .cell { display: flex; flex-direction: column; gap: 4px; }
+  .chip { height: 36px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); }
+  .lbl { font-size: 9px; font-family: 'JetBrains Mono', monospace; color: #444; line-height: 1.3; }
+  .title { font-family: 'Orbit', sans-serif; font-size: 11px; margin-bottom: 10px; color: #000; }
+</style>
+</head>
+<body>
+<div class="title">Light Mode Tokens</div>
+<div class="grid">
+  <div class="cell"><div class="chip" style="background:oklch(1 0 0); border-color:#ccc;"></div><div class="lbl">background</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0 0 0);"></div><div class="lbl">foreground</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0.6903 0.2708 340.88);"></div><div class="lbl">primary (pink)</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0.8982 0.1458 194.87);"></div><div class="lbl">secondary (teal)</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0 0 0);"></div><div class="lbl">border</div></div>
+
+  <div class="cell"><div class="chip" style="background:oklch(0.6903 0.2708 340.88);"></div><div class="lbl">border-2</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0.9006 0 0);"></div><div class="lbl">input</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(62.793% 0.25768 29.223);"></div><div class="lbl">destructive</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0.7 0.15 145);"></div><div class="lbl">success</div></div>
+  <div class="cell"><div class="chip" style="background:oklch(0.8982 0.1458 194.87);"></div><div class="lbl">sidebar-primary</div></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #fff; font-family: 'Inter', sans-serif; padding: 18px 22px; }
+  .row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .frame { width: 56px; height: 56px; background: oklch(0.8982 0.1458 194.87); }
+  .lbl { font-size: 9px; font-family: 'JetBrains Mono', monospace; color: #555; text-align: center; }
+
+  .frame-user {
+    clip-path: circle(50% at 50% 50%);
+    background: oklch(0.6903 0.2708 340.88);
+  }
+  .frame-track { border-radius: 0; background: oklch(0.78 0.12 350); }
+  .frame-collection {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background: oklch(0.8982 0.1458 194.87);
+  }
+  .frame-orbiter {
+    clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+    background: oklch(0.78 0.12 165);
+    animation: orbiter-glow 3s ease-in-out infinite alternate;
+  }
+  .frame-world {
+    border-radius: 12px;
+    border: 2px solid oklch(62.793% 0.25768 29.223);
+    background: oklch(0.78 0.10 230);
+  }
+  @keyframes orbiter-glow {
+    0%   { filter: brightness(1) saturate(1); }
+    100% { filter: brightness(1.2) saturate(1.3); }
+  }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item">
+      <div class="frame frame-user"></div>
+      <div class="lbl">User<br>circle</div>
+    </div>
+    <div class="item">
+      <div class="frame frame-track"></div>
+      <div class="lbl">Track<br>square</div>
+    </div>
+    <div class="item">
+      <div class="frame frame-collection"></div>
+      <div class="lbl">Collection<br>diamond</div>
+    </div>
+    <div class="item">
+      <div class="frame frame-orbiter"></div>
+      <div class="lbl">Orbiter<br>hexagon</div>
+    </div>
+    <div class="item">
+      <div class="frame frame-world"></div>
+      <div class="lbl">World<br>rounded+border</div>
+    </div>
+  </div>
+</body>
+</html>

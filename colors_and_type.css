@@ -1,0 +1,250 @@
+/*
+ * plantasia.space Design System — Colors & Typography
+ * Source: plantasia-space-org/plantasia.space-root (src/app/globals.css)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="colors_and_type.css">
+ *   or @import "./colors_and_type.css";
+ *
+ * Fonts are loaded from Google Fonts (see note at bottom).
+ * Orbit → display/title headings
+ * Inter → body / UI text
+ * JetBrains Mono → monospace / code
+ */
+
+/* ─── Google Font Imports ─────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Orbit&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+/* ─── Brand Color Primitives ─────────────────────────────────────────── */
+:root {
+  /* Core xplorer palette — the two signature brand hues */
+  --ps-teal:    oklch(0.8982 0.1458 194.8698); /* xplorer-col-1: aqua/mint */
+  --ps-pink:    oklch(0.6903 0.2708 340.8828); /* xplorer-col-2: hot pink/magenta */
+
+  /* Entity accent colors */
+  --ps-entity-track:   oklch(0.78 0.12 350);  /* pink-red */
+  --ps-entity-world:   oklch(0.78 0.10 230);  /* sky blue */
+  --ps-entity-orbiter: oklch(0.78 0.12 165);  /* green */
+
+  /* Semantic status */
+  --ps-destructive:    oklch(62.793% 0.25768 29.223);
+  --ps-success:        oklch(0.8724 0.2723 143.4514);
+  --ps-success-dark:   oklch(0.7 0.15 145);
+}
+
+/* ─── Light Mode Semantic Tokens ─────────────────────────────────────── */
+:root {
+  --background:              oklch(1.0000 0 0);          /* pure white */
+  --foreground:              oklch(0 0 0);               /* pure black */
+  --card:                    oklch(1.0000 0 0);
+  --card-foreground:         oklch(0 0 0);
+  --popover:                 oklch(1.0000 0 0);
+  --popover-foreground:      oklch(0 0 0);
+
+  --primary:                 var(--ps-pink);             /* hot pink */
+  --primary-foreground:      oklch(100% 0.00011 271.152);/* white */
+  --secondary:               var(--ps-teal);             /* mint/teal */
+  --secondary-foreground:    var(--ps-pink);
+
+  --muted:                   oklch(1.0000 0 0);
+  --muted-foreground:        oklch(0 0 0);
+  --accent:                  oklch(0% 0 0);
+  --accent-foreground:       oklch(1.0000 0 0);
+
+  --destructive:             var(--ps-destructive);
+  --destructive-foreground:  oklch(100% 0.00011 271.152);
+  --success:                 var(--ps-success-dark);
+  --success-foreground:      oklch(1.0000 0 0);
+
+  --border:                  oklch(0 0 0);               /* solid black */
+  --border-2:                var(--ps-pink);             /* accent/pink border */
+  --input:                   oklch(0.9006 0 0);          /* light grey input */
+  --ring:                    var(--ps-success);
+
+  /* Sidebar tokens */
+  --sidebar:                 var(--background);
+  --sidebar-foreground:      oklch(0 0 0);
+  --sidebar-primary:         var(--ps-teal);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent:          oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(1.0000 0 0);
+  --sidebar-border:          oklch(0 0 0);
+
+  /* Navigation/blur backgrounds */
+  --bottom-bar-bg:           #ffffffeb;
+  --blur-bg:                 #ffffffeb;
+}
+
+/* ─── Dark Mode Semantic Tokens ──────────────────────────────────────── */
+.dark {
+  --background:              oklch(0 0 0);               /* pure black */
+  --foreground:              oklch(1.0000 0 0);          /* pure white */
+  --card:                    oklch(0 0 0);
+  --card-foreground:         oklch(1.0000 0 0);
+  --popover:                 oklch(0 0 0);
+  --popover-foreground:      oklch(1.0000 0 0);
+
+  --primary:                 var(--ps-teal);             /* teal in dark mode */
+  --primary-foreground:      oklch(0% 0 0);              /* black on teal */
+  --secondary:               var(--ps-pink);             /* pink in dark mode */
+  --secondary-foreground:    var(--ps-teal);
+
+  --muted:                   oklch(0 0 0);
+  --muted-foreground:        oklch(1.0000 0 0);
+  --accent:                  oklch(1.0000 0 0);
+  --accent-foreground:       oklch(0 0 0);
+
+  --destructive:             oklch(0.6489 0.2370 26.9728);
+  --destructive-foreground:  oklch(1.0000 0 0);
+  --success:                 var(--ps-success);
+  --success-foreground:      transparent;
+
+  --border:                  oklch(1.0000 0 0);          /* solid white */
+  --border-2:                var(--ps-teal);             /* teal accent border */
+  --input:                   oklch(0.5897 0 0);
+
+  --sidebar:                 var(--background);
+  --sidebar-foreground:      oklch(1.0000 0 0);
+  --sidebar-primary:         var(--ps-pink);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent:          oklch(1.0000 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border:          oklch(1.0000 0 0);
+
+  --bottom-bar-bg:           #000000cf;
+  --blur-bg:                 #000000cf;
+}
+
+/* ─── Spacing & Layout Tokens ─────────────────────────────────────────── */
+:root {
+  --radius:     0.75rem;  /* 12px — base corner radius */
+  --radius-sm:  0.5rem;   /* 8px */
+  --radius-md:  0.625rem; /* 10px */
+  --radius-lg:  0.75rem;  /* 12px */
+  --radius-xl:  1rem;     /* 16px */
+
+  /* No box-shadows — plantasia.space uses flat/borderless design */
+  --shadow-2xs: 0 0 0 0 hsl(0 0% 0% / 0);
+  --shadow-xs:  0 0 0 0 hsl(0 0% 0% / 0);
+  --shadow-sm:  none;
+  --shadow:     none;
+  --shadow-md:  none;
+  --shadow-lg:  none;
+  --shadow-xl:  none;
+  --shadow-2xl: 0 0 0 0 hsl(0 0% 0% / 0);
+
+  /* Layout */
+  --nav-mobile-bar-height: 64px;
+  --mini-player-height:    64px;
+}
+
+/* ─── Typography Tokens ───────────────────────────────────────────────── */
+:root {
+  --font-title: 'Orbit', sans-serif;   /* display/headings — space aesthetic */
+  --font-sans:  'Inter', sans-serif;   /* body / UI text */
+  --font-serif: 'Inter', sans-serif;   /* same as sans */
+  --font-mono:  'JetBrains Mono', monospace;
+
+  --tracking-normal: normal;
+}
+
+/* ─── Semantic Type Scale ─────────────────────────────────────────────── */
+/* h1–h3 use Orbit (font-title); body uses Inter */
+h1, h2, h3, .font-title {
+  font-family: var(--font-title);
+  letter-spacing: var(--tracking-normal);
+}
+
+h1 { font-size: 2.25rem; line-height: 1.2; font-weight: 400; }
+h2 { font-size: 1.5rem;  line-height: 1.25; font-weight: 400; }
+h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 400; }
+
+body, p, .font-sans {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+small, .text-sm { font-size: 0.875rem; }
+.text-xs        { font-size: 0.75rem; }
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+/* ─── Entity Frame Shapes ─────────────────────────────────────────────── */
+/* Applied to image/avatar wrappers */
+
+.frame-user {
+  clip-path: circle(50% at 50% 50%);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.frame-user:hover { transform: scale(1.05); }
+
+.frame-track {
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.frame-track:hover { transform: scale(1.05); }
+
+.frame-collection {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.frame-collection:hover { transform: scale(1.05); }
+
+.frame-orbiter {
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  animation: orbiter-glow 3s ease-in-out infinite alternate;
+}
+.frame-orbiter:hover { transform: scale(1.05); animation-play-state: paused; }
+
+.frame-world {
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--destructive);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.frame-world:hover { transform: scale(1.05); }
+
+@keyframes orbiter-glow {
+  0%   { filter: brightness(1) saturate(1); }
+  100% { filter: brightness(1.2) saturate(1.3); }
+}
+
+/* ─── Glassmorphism Utility ───────────────────────────────────────────── */
+.bg-blur-bg {
+  background: var(--blur-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── Lucide Icon Override ────────────────────────────────────────────── */
+/* plantasia.space uses thin (1.0) stroke weight for all Lucide icons */
+svg.lucide { stroke-width: 1.0 !important; }
+
+/* ─── Animation Utilities ────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.5s ease-out; }
+
+/* ─── FONT NOTE ──────────────────────────────────────────────────────── */
+/*
+ * Fonts are loaded from Google Fonts (see @import at top).
+ * If offline use is required, download and place under fonts/:
+ *   fonts/Orbit-Regular.woff2
+ *   fonts/Inter-[weights].woff2
+ *   fonts/JetBrainsMono-[weights].woff2
+ * Then replace the @import with local @font-face declarations.
+ *
+ * NOTE: The "Orbit" font is a close match for the app's display font.
+ * Verify with the team if a custom or licensed variant is in use.
+ */

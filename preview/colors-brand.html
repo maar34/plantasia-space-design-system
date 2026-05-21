@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #fff; font-family: 'Inter', sans-serif; padding: 20px; }
+  .swatches { display: flex; gap: 0; height: 80px; border: 1px solid #000; overflow: hidden; border-radius: 4px; }
+  .swatch { flex: 1; position: relative; }
+  .swatch-label { position: absolute; bottom: 6px; left: 8px; font-size: 10px; font-family: 'JetBrains Mono', monospace; color: rgba(0,0,0,0.6); }
+  .swatch-label.light { color: rgba(255,255,255,0.8); }
+  .row { display: flex; gap: 12px; align-items: stretch; margin-top: 14px; }
+  .mini { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #ccc; }
+  .info { font-size: 11px; line-height: 1.6; }
+  .name { font-weight: 600; font-size: 12px; font-family: 'Orbit', sans-serif; }
+  .val { font-family: 'JetBrains Mono', monospace; color: #555; font-size: 10px; }
+</style>
+</head>
+<body>
+<div class="swatches">
+  <div class="swatch" style="background: oklch(0.8982 0.1458 194.8698)">
+    <span class="swatch-label">--ps-teal</span>
+  </div>
+  <div class="swatch" style="background: oklch(0.6903 0.2708 340.8828)">
+    <span class="swatch-label light">--ps-pink</span>
+  </div>
+  <div class="swatch" style="background: #000">
+    <span class="swatch-label light">black</span>
+  </div>
+  <div class="swatch" style="background: #fff; border-left: 1px solid #ddd;">
+    <span class="swatch-label">white</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="mini" style="background: oklch(0.8982 0.1458 194.8698)"></div>
+  <div class="info">
+    <div class="name">Teal (xplorer-col-1)</div>
+    <div class="val">oklch(0.8982 0.1458 194.87)</div>
+    <div class="val">Primary in dark mode · Secondary in light</div>
+  </div>
+</div>
+<div class="row">
+  <div class="mini" style="background: oklch(0.6903 0.2708 340.8828)"></div>
+  <div class="info">
+    <div class="name">Pink (xplorer-col-2)</div>
+    <div class="val">oklch(0.6903 0.2708 340.88)</div>
+    <div class="val">Primary in light mode · Secondary in dark</div>
+  </div>
+</div>
+</body>
+</html>

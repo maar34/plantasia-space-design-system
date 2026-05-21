@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #fff; font-family: 'Inter', sans-serif; padding: 16px 20px; }
+  .section-title { font-family: 'Orbit', sans-serif; font-size: 10px; color: #888; margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .chip { height: 28px; background: #000; display: flex; align-items: center; padding: 0 12px; color: #fff; font-size: 10px; font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+  .lbl { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #555; min-width: 90px; }
+  .spacer-row { display: flex; gap: 6px; align-items: flex-end; }
+  .spacer { background: oklch(0.8982 0.1458 194.87); width: 8px; }
+</style>
+</head>
+<body>
+  <div class="section-title">Border Radius</div>
+  <div class="row">
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="width:36px;height:36px;background:#000;border-radius:0.5rem;"></div>
+      <div class="lbl">sm · 8px</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="width:36px;height:36px;background:#000;border-radius:0.625rem;"></div>
+      <div class="lbl">md · 10px</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="width:36px;height:36px;background:#000;border-radius:0.75rem;"></div>
+      <div class="lbl">lg · 12px</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="width:36px;height:36px;background:#000;border-radius:1rem;"></div>
+      <div class="lbl">xl · 16px</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="width:36px;height:36px;background:#000;border-radius:9999px;"></div>
+      <div class="lbl">full</div>
+    </div>
+  </div>
+
+  <div class="section-title">Spacing Scale (Tailwind base-4)</div>
+  <div class="spacer-row">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:4px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">1</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:8px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">2</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:12px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">3</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:16px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">4</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:24px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">6</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:32px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">8</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:48px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">12</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div class="spacer" style="height:64px;"></div>
+      <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">16</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; background: #fff; font-family: 'Inter', sans-serif; padding: 18px 22px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  .section-label {
+    font-family: 'Orbit', sans-serif; font-size: 9px; color: #888;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; margin-top: 14px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .note { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #bbb; margin-top: 2px; display: block; }
+
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 6px; border: 1px solid transparent;
+    padding: 2px 8px; font-size: 11px; font-weight: 500;
+    font-family: 'Inter', sans-serif; white-space: nowrap;
+  }
+  /* Exact variants from badge.tsx */
+  .badge-default     { background: oklch(0.6903 0.2708 340.88); color: #fff; }
+  .badge-secondary   { background: #000; color: #fff; font-weight: 700; }
+  .badge-destructive { background: oklch(62.793% 0.25768 29.223); color: #fff; }
+  .badge-outline     { background: transparent; color: #000; border-color: #000; }
+</style>
+</head>
+<body>
+
+  <div class="section-label">Badge variants — from badge.tsx</div>
+  <div class="row">
+    <span class="badge badge-default">Default</span>
+    <span class="badge badge-secondary">Secondary</span>
+    <span class="badge badge-destructive">Destructive</span>
+    <span class="badge badge-outline">Outline</span>
+  </div>
+  <span class="note">4 variants defined in codebase. primary = --ps-pink (light) / --ps-teal (dark)</span>
+
+  <div class="section-label">In practice — entity labels use standard variants</div>
+  <div class="row">
+    <span class="badge badge-default">Audio</span>
+    <span class="badge badge-default">Orbiter</span>
+    <span class="badge badge-default">Entangled World</span>
+    <span class="badge badge-default">Collection</span>
+  </div>
+  <div class="row">
+    <span class="badge badge-secondary">Secondary</span>
+    <span class="badge badge-outline">Outline</span>
+  </div>
+  <span class="note">Entity accent colors (--entity-track, --entity-world, --entity-orbiter) exist in CSS vars but are used for frames/charts, not badges</span>
+
+  <div class="section-label">Status / utility</div>
+  <div class="row">
+    <span class="badge badge-outline">Beta</span>
+    <span class="badge badge-destructive">Past due</span>
+    <span class="badge badge-secondary">Pro</span>
+    <span class="badge badge-outline">Free</span>
+  </div>
+
+</body>
+</html>

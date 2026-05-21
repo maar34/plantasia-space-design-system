@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="Sidebar.jsx"></script>
+<script type="text/babel" src="EntityCards.jsx"></script>
+<style>
+  html, body { height: 100%; overflow: hidden; }
+  #root { height: 100%; }
+  .ps-app { height: 100%; overflow: hidden; }
+  .ps-body { height: calc(100% - 64px); overflow: hidden; }
+  .ps-sidebar { height: 100%; }
+  .ps-main { height: 100%; overflow-y: auto; }
+</style>
+</head>
+<body class="light">
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useCallback } = React;
+
+/* ── SCREEN: Guest Home ─────────────────────────────────────── */
+function GuestHomeScreen({ onNavigate }) {
+  return (
+    <div className="ps-content">
+      {/* Hero */}
+      <div style={{ textAlign: 'center', padding: '48px 0 32px' }}>
+        <h1 style={{ fontSize: '3rem', marginBottom: '12px', lineHeight: 1.1 }}>plantasia.space</h1>
+        <p style={{ fontSize: '1.1rem', opacity: 0.5, marginBottom: '32px', fontFamily: "'Orbit', sans-serif" }}>
+          Home for Regenerative Music
+        </p>
+        {/* Marquee */}
+        <div className="ps-marquee-wrap" style={{ marginBottom: '36px' }}>
+          <div className="ps-marquee">
+            {['Music as a tool for time travel,','A key to the memory of the landscape.','Curate, collaborate, and cultivate new worlds.','xPlorers are gardeners of the soundscape.','Listening transformed into experience.','Music as a tool for time travel,','A key to the memory of the landscape.','Curate, collaborate, and cultivate new worlds.','xPlorers are gardeners of the soundscape.','Listening transformed into experience.'].map((t,i) => (
+              <span key={i} className="ps-marquee-item">{t}</span>
+            ))}
+          </div>
+        </div>
+        {/* CTA */}
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button className="ps-btn ps-btn-primary ps-btn-lg">Sign up free</button>
+          <button className="ps-btn ps-btn-outline ps-btn-lg" onClick={() => onNavigate('xplorer')}>xPlorer</button>
+          <button className="ps-btn ps-btn-outline ps-btn-lg" onClick={() => onNavigate('release')}>Release</button>
+        </div>
+      </div>
+
+      <hr className="ps-divider" />
+
+      {/* Empty state / feed preview */}
+      <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h2 style={{ fontSize: '1rem' }}>Community creations</h2>
+        <span style={{ fontSize: '11px', opacity: 0.4 }}>Log in to interact</span>
+      </div>
+      <FeedGrid />
+
+      {/* Bottom CTA */}
+      <div className="ps-fcc" style={{ marginTop: '40px', marginBottom: '40px' }}>
+        <span className="ps-fcc-corner tl accent"></span>
+        <span className="ps-fcc-corner tr accent"></span>
+        <span className="ps-fcc-corner bl accent"></span>
+        <span className="ps-fcc-corner br accent"></span>
+        <div style={{ textAlign: 'center', padding: '16px' }}>
+          <p style={{ fontFamily: "'Orbit', sans-serif", fontSize: '1.1rem', marginBottom: '16px' }}>
+            Join plantasia.space — a space where music regenerates and flourishes.
+          </p>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button className="ps-btn ps-btn-primary">Sign up free</button>
+            <button className="ps-btn ps-btn-outline">Log in</button>
+            <button className="ps-btn ps-btn-outline">See plans</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── SCREEN: xPlorer ────────────────────────────────────────── */
+function XplorerScreen() {
+  const pillars = [
+    {
+      label: 'xPlorer Identity',
+      title: 'Curators of the living archive',
+      body: 'We share music born from the desire to be heard, recreated, and reborn within the listener. It is music that transforms and renews itself, like a seed that germinates in every ear.',
+    },
+    {
+      label: 'Manifesto',
+      title: 'An Aural Community without Borders',
+      body: 'Change is the only constant. Expect finding music in Soundscape and soundscape in Music. Out of tune can be beautiful. Forget the genre, enjoy the Style.',
+    },
+  ];
+  return (
+    <div className="ps-content">
+      <div style={{ padding: '40px 0 20px' }}>
+        <h1 style={{ fontSize: '3.5rem', marginBottom: '16px' }}>xPlorer</h1>
+        <p style={{ fontSize: '1rem', maxWidth: '520px', lineHeight: 1.7, opacity: 0.7, marginBottom: '32px' }}>
+          The xPlorers listen, nurture, and create music that regenerates, like the landscape.
+        </p>
+        <div className="ps-marquee-wrap" style={{ marginBottom: '36px', borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'oklch(0.6903 0.2708 340.8828)', padding: '10px 0' }}>
+          <div className="ps-marquee">
+            {['Music as a tool for time travel,','A key to the memory of the landscape.','Curate, collaborate, and cultivate new worlds.','xPlorers are gardeners of the soundscape.','Music as a tool for time travel,','A key to the memory of the landscape.','Curate, collaborate, and cultivate new worlds.','xPlorers are gardeners of the soundscape.'].map((t,i) => (
+              <span key={i} className="ps-marquee-item">{t}</span>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '48px' }}>
+          <button className="ps-btn ps-btn-primary ps-btn-lg">Become an xPlorer</button>
+          <button className="ps-btn ps-btn-outline ps-btn-lg">See membership tiers</button>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '40px' }}>
+        {pillars.map((p, i) => (
+          <div key={i} className="ps-fcc">
+            <span className="ps-fcc-corner tl"></span>
+            <span className="ps-fcc-corner tr"></span>
+            <span className="ps-fcc-corner bl"></span>
+            <span className="ps-fcc-corner br"></span>
+            <div style={{ padding: '4px' }}>
+              <div style={{ fontSize: '10px', fontFamily: "'JetBrains Mono',monospace", opacity: 0.4, marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{p.label}</div>
+              <h3 style={{ marginBottom: '12px', fontSize: '1rem' }}>{p.title}</h3>
+              <p style={{ fontSize: '13px', lineHeight: 1.7, opacity: 0.65 }}>{p.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Tiers */}
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '20px' }}>Membership Tiers</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '48px' }}>
+        {[
+          { name: 'Listener', desc: 'Listen and browse', color: '#eee', textColor: '#000' },
+          { name: 'Seed', desc: 'Upload audios, basic tools', color: '#000', textColor: '#fff' },
+          { name: 'Bloom', desc: 'Entangled Worlds + AI', color: 'oklch(0.8982 0.1458 194.87)', textColor: '#000' },
+          { name: 'xPlorer', desc: 'Full creation suite', color: 'oklch(0.6903 0.2708 340.88)', textColor: '#fff' },
+        ].map((t, i) => (
+          <div key={i} style={{ padding: '16px', background: t.color, color: t.textColor, borderRadius: '10px', border: '1px solid currentColor' }}>
+            <div style={{ fontFamily: "'Orbit',sans-serif", fontSize: '16px', marginBottom: '8px' }}>{t.name}</div>
+            <div style={{ fontSize: '11px', opacity: 0.7 }}>{t.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── SCREEN: Release ────────────────────────────────────────── */
+function ReleaseScreen() {
+  const sections = [
+    { n: '1/4', title: 'Release your sound creations', body: 'Upload audio and turn it into an interactive listening experience. Choose how listeners can interact — from subtle gestures to fully generative journeys.' },
+    { n: '2/4', title: 'Create and maintain Entangled Worlds', body: 'An Entangled World is a mix of science fact, narrative, sound, and visual identity. Link your world to a real discovered exoplanet.' },
+    { n: '3/4', title: 'Create your Orbiters', body: 'Orbiters are musical meta-instruments you can design and publish. Design processing chains, calibrate sensor responses, map MIDI.' },
+    { n: '4/4', title: 'Collaboration & access', body: 'For every entity you publish, control visibility and roles: Private, Shared, Public. Invite trusted collaborators.' },
+  ];
+  return (
+    <div className="ps-content">
+      <div style={{ padding: '40px 0 20px' }}>
+        <h1 style={{ fontSize: '3.5rem', marginBottom: '16px' }}>Release</h1>
+        <p style={{ fontSize: '1rem', maxWidth: '520px', lineHeight: 1.7, opacity: 0.7, marginBottom: '32px' }}>
+          plantasia.space lets you publish more than audio files. Release music, create worlds, build instruments, and invite collaborators — all inside one ecosystem.
+        </p>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '48px' }}>
+          <button className="ps-btn ps-btn-primary ps-btn-lg">Create an account</button>
+          <button className="ps-btn ps-btn-outline ps-btn-lg">See plans</button>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '48px' }}>
+        {sections.map((s, i) => (
+          <div key={i} className="ps-card">
+            <div className="ps-card-body">
+              <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: '10px', opacity: 0.35, marginBottom: '8px' }}>{s.n}</div>
+              <div className="ps-card-title" style={{ fontSize: '15px', marginBottom: '10px' }}>{s.title}</div>
+              <p style={{ fontSize: '12px', lineHeight: 1.7, opacity: 0.6 }}>{s.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── SCREEN: Dashboard ──────────────────────────────────────── */
+function DashboardScreen() {
+  return (
+    <div className="ps-content">
+      <h2 className="ps-section-title">Home</h2>
+      <FeedGrid />
+    </div>
+  );
+}
+
+/* ── SCREEN: Entity List (generic) ─────────────────────────── */
+function EntityListScreen({ type }) {
+  const titles = { tracks: 'My Audios', orbiters: 'My Orbiters', worlds: 'My Entangled Worlds', collections: 'My Collections', search: 'Search' };
+  return (
+    <div className="ps-content">
+      <h2 className="ps-section-title">{titles[type] || type}</h2>
+      <p style={{ opacity: 0.4, fontSize: '13px', marginBottom: '24px' }}>
+        {type === 'search' ? 'What are you listening for?' : `Your ${titles[type]?.replace('My ', '').toLowerCase()} will appear here.`}
+      </p>
+      {type !== 'search' && <FeedGrid />}
+    </div>
+  );
+}
+
+/* ── MINI PLAYER ────────────────────────────────────────────── */
+function MiniPlayer({ isAuth }) {
+  if (!isAuth) return null;
+  return (
+    <div className="ps-mini-player" style={{ position: 'sticky', bottom: 0, zIndex: 40 }}>
+      <div className="ps-player-art" />
+      <div className="ps-player-info">
+        <div className="ps-player-title">Mycelium Drift</div>
+        <div className="ps-player-artist">jasmine.moss</div>
+      </div>
+      <div className="ps-player-controls">
+        <button className="ps-icon-btn" style={{ width: 28, height: 28 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>
+          </svg>
+        </button>
+        <button className="ps-play-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button className="ps-icon-btn" style={{ width: 28, height: 28 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+          </svg>
+        </button>
+      </div>
+      <div style={{ flex: 1, height: '2px', background: 'rgba(128,128,128,0.2)', borderRadius: '1px', position: 'relative', marginLeft: '8px' }}>
+        <div style={{ height: '100%', width: '35%', background: 'oklch(0.6903 0.2708 340.8828)', borderRadius: '1px' }} />
+      </div>
+      <span style={{ fontSize: '10px', opacity: 0.4, fontFamily: "'JetBrains Mono',monospace", marginLeft: '6px' }}>1:36 / 4:32</span>
+    </div>
+  );
+}
+
+/* ── SCREEN ROUTER ──────────────────────────────────────────── */
+function ScreenContent({ screen, onNavigate }) {
+  if (screen === 'guest-home') return <GuestHomeScreen onNavigate={onNavigate} />;
+  if (screen === 'xplorer')    return <XplorerScreen />;
+  if (screen === 'release')    return <ReleaseScreen />;
+  if (screen === 'dashboard')  return <DashboardScreen />;
+  return <EntityListScreen type={screen} />;
+}
+
+/* ── APP ────────────────────────────────────────────────────── */
+function App() {
+  const [screen, setScreen] = useState('guest-home');
+  const [isAuth, setIsAuth] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  window.__toggleDark = () => {
+    setIsDark(d => !d);
+  };
+
+  // Sync body class for CSS
+  React.useEffect(() => {
+    document.body.className = isDark ? 'dark' : 'light';
+  }, [isDark]);
+
+  const handleToggleAuth = useCallback(() => {
+    setIsAuth(a => {
+      const newAuth = !a;
+      if (newAuth) setScreen('dashboard');
+      else setScreen('guest-home');
+      return newAuth;
+    });
+  }, []);
+
+  const handleNavigate = useCallback((s) => {
+    if (!isAuth && !['guest-home','xplorer','release'].includes(s)) {
+      handleToggleAuth();
+      return;
+    }
+    setScreen(s);
+  }, [isAuth, handleToggleAuth]);
+
+  const showSidebar = isAuth;
+
+  return (
+    <div className="ps-app">
+      <SiteHeader
+        isAuth={isAuth}
+        isDark={isDark}
+        onToggleSidebar={() => setSidebarCollapsed(c => !c)}
+        onNavigate={handleNavigate}
+        onToggleAuth={handleToggleAuth}
+      />
+      <div className="ps-body">
+        {showSidebar && (
+          <AppSidebar
+            screen={screen}
+            onNavigate={handleNavigate}
+            collapsed={sidebarCollapsed}
+          />
+        )}
+        <main className="ps-main">
+          <ScreenContent screen={screen} onNavigate={handleNavigate} />
+          <MiniPlayer isAuth={isAuth} />
+        </main>
+      </div>
+      {showSidebar && <MobileNav screen={screen} onNavigate={handleNavigate} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
