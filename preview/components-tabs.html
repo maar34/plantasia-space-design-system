@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabs · Hairline Variations — plantasia.space</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    padding: 18px 48px 80px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  /* Header */
+  .page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid color-mix(in oklch, var(--foreground) 8%, transparent);
+    margin-bottom: 32px;
+  }
+  .header-left { display: flex; align-items: baseline; gap: 10px; }
+  .page-title { font-family: var(--font-title); font-size: 1.125rem; font-weight: 400; margin: 0; }
+  .page-sep { color: color-mix(in oklch, var(--foreground) 20%, transparent); }
+  .page-subtitle { font-family: var(--font-mono); font-size: 11px; color: color-mix(in oklch, var(--foreground) 40%, transparent); letter-spacing: 0.04em; }
+  
+  .theme-toggle {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; cursor: pointer;
+    border: 1px solid color-mix(in oklch, var(--foreground) 16%, transparent);
+    background: transparent; color: color-mix(in oklch, var(--foreground) 50%, transparent);
+    border-radius: 6px; padding: 4px 12px; height: 28px; transition: all 0.15s;
+  }
+  .theme-toggle:hover { border-color: var(--foreground); color: var(--foreground); }
+
+  /* Page layout */
+  .page-content { display: flex; flex-direction: column; gap: 64px; }
+
+  /* Variation block */
+  .variation { display: flex; flex-direction: column; gap: 20px; }
+  .var-header {
+    display: grid; grid-template-columns: 24px auto auto 1fr;
+    align-items: baseline; gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid color-mix(in oklch, var(--foreground) 7%, transparent);
+  }
+  .var-num { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: color-mix(in oklch, var(--foreground) 20%, transparent); }
+  .var-name { font-family: var(--font-title); font-size: 1.2rem; font-weight: 400; }
+  .var-tag {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.05em;
+    color: color-mix(in oklch, var(--foreground) 35%, transparent);
+    border: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+    border-radius: 4px; padding: 2px 8px; align-self: center;
+  }
+  .var-desc { font-family: var(--font-mono); font-size: 9px; color: color-mix(in oklch, var(--foreground) 32%, transparent); text-align: right; letter-spacing: 0.02em; }
+
+  /* Showcase Sizes & Rows */
+  .sizes { display: flex; flex-direction: column; gap: 24px; }
+  .size-row { display: flex; flex-direction: column; gap: 8px; }
+  .size-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.04em; color: color-mix(in oklch, var(--foreground) 28%, transparent); }
+
+  /* Dummy content */
+  .tab-content { padding: 16px 0 0; font-family: var(--font-mono); font-size: 11px; color: color-mix(in oklch, var(--foreground) 30%, transparent); display: none; }
+  .tab-content.active { display: block; }
+</style>
+</head>
+<body class="light">
+
+  <header class="page-header">
+    <div class="header-left">
+      <h2 class="page-title">Tabs</h2>
+      <span class="page-sep">·</span>
+      <span class="page-subtitle">Hairline Variations</span>
+    </div>
+    <button id="toggle-theme" class="theme-toggle">☾ Dark</button>
+  </header>
+
+  <main class="page-content">
+
+    <section class="variation">
+      <div class="var-header">
+        <span class="var-num">01</span>
+        <span class="var-name">Extended</span>
+        <span class="var-tag">corners</span>
+        <span class="var-desc">Active line overflows tab edge 4px each side · bottom corner marks anchor it to the track</span>
+      </div>
+      
+      <div class="sizes">
+        <!-- Size 1: 2 tabs -->
+        <div class="size-row">
+          <span class="size-label">2 tabs</span>
+          <div class="tabs-05" data-group="tabs-2" role="tablist">
+            <button class="tab active" data-tab="0" role="tab" aria-selected="true"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Released</button>
+            <button class="tab" data-tab="1" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Drafts</button>
+          </div>
+          <div class="tab-content active" data-for="tabs-2" data-index="0">— Released content is visible here</div>
+          <div class="tab-content" data-for="tabs-2" data-index="1">— Drafts content is visible here</div>
+        </div>
+
+        <!-- Size 2: 4 tabs -->
+        <div class="size-row">
+          <span class="size-label">4 tabs</span>
+          <div class="tabs-05" data-group="tabs-4" role="tablist">
+            <button class="tab active" data-tab="0" role="tab" aria-selected="true"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>All</button>
+            <button class="tab" data-tab="1" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Active</button>
+            <button class="tab" data-tab="2" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Paused</button>
+            <button class="tab" data-tab="3" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Archived</button>
+          </div>
+          <div class="tab-content active" data-for="tabs-4" data-index="0">— Displaying all entities</div>
+          <div class="tab-content" data-for="tabs-4" data-index="1">— Filtered by: Active state</div>
+          <div class="tab-content" data-for="tabs-4" data-index="2">— Filtered by: Paused state</div>
+          <div class="tab-content" data-for="tabs-4" data-index="3">— Filtered by: Archived state</div>
+        </div>
+
+        <!-- Size 3: with counts -->
+        <div class="size-row">
+          <span class="size-label">with count</span>
+          <div class="tabs-05" data-group="tabs-counts" role="tablist">
+            <button class="tab active" data-tab="0" role="tab" aria-selected="true"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Tracks <span class="tab-count">12</span></button>
+            <button class="tab" data-tab="1" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Worlds <span class="tab-count">4</span></button>
+            <button class="tab" data-tab="2" role="tab" aria-selected="false"><span class="c-bl" aria-hidden="true"></span><span class="c-br" aria-hidden="true"></span>Orbiters <span class="tab-count">38</span></button>
+          </div>
+          <div class="tab-content active" data-for="tabs-counts" data-index="0">— Audios / Tracks list</div>
+          <div class="tab-content" data-for="tabs-counts" data-index="1">— Entangled Worlds list</div>
+          <div class="tab-content" data-for="tabs-counts" data-index="2">— Musical Orbiters list</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Theme toggle
+    document.getElementById('toggle-theme').addEventListener('click', function() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+      var isDark = document.body.classList.contains('dark');
+      this.textContent = isDark ? '☼ Light' : '☾ Dark';
+    });
+
+    // Tab interaction
+    document.querySelectorAll('.tabs-05').forEach(function(tabsEl) {
+      var group = tabsEl.dataset.group;
+      
+      tabsEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('.tab');
+        if (!btn) return;
+        
+        var idx = parseInt(btn.dataset.tab);
+        
+        // Remove active class from all sibling tabs and update aria-selected
+        tabsEl.querySelectorAll('.tab').forEach(function(t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        
+        // Activate clicked tab
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        
+        // Toggle active panels
+        document.querySelectorAll('[data-for="' + group + '"]').forEach(function(c) {
+          c.classList.toggle('active', parseInt(c.dataset.index) === idx);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

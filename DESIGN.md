@@ -115,6 +115,8 @@ mono JBMono 0.875rem (14px)            — tokens, code
 --radius-xl:  1rem      /* 16px */
 ```
 
+**Runtime source:** `--radius` is not static — `src/lib/design-resolver.ts` sets it from the active preset's `roundedCorners` value and `src/components/design-settings-applier.tsx` applies it to `:root`. The `--radius-sm/md/lg` steps are `calc(var(--radius) ± Npx)` in `@theme inline`. Because every control uses `rounded-md` (= `calc(var(--radius) - 2px)`), changing the preset radius rescales buttons, inputs, chips, and cards together — design to the token, never hardcode a radius.
+
 ### Shadows
 
 **None.** All `--shadow-*` vars resolve to zero. Depth is achieved via **borders and color contrast only**. Do not add box-shadows to components.
@@ -223,23 +225,82 @@ Entity list pages (`/[username]/stars`, `/[username]/orbiters`, `/[username]/col
 
 ## Component Patterns
 
+> **Living reference:** the source of truth for every interactive primitive below is the in-app showcase at `/[locale]/dev/ui-kit` (dev-only, 404s in prod), backed by `src/app/[locale]/dev/ui-kit/page.tsx`. When this doc and the showcase disagree, the showcase (i.e. the code) wins.
+
+### Brand corner-bracket hover (the core interaction)
+
+The signature interaction across the app: four L-shaped bracket marks at a control's corners that fade and slide in on hover. It is implemented once and reused by **buttons, segmented groups, filters, tabs, sidebar rows, and the search field** — this shared language is what makes the UI feel cohesive.
+
+**Markup:** four `<span data-corner="tl|tr|bl|br">` injected *inside* the control (decorative, `aria-hidden`). The CSS is keyed off the `[data-corner]` spans themselves — **not** the host's `data-slot` — so it survives Radix `asChild` slotting (where `data-slot` gets overwritten).
+
+**Tunable custom properties** (set on the host; they cascade down to the brackets):
+
+| Var | Default | Meaning |
+|---|---|---|
+| `--btn-corner-size`   | `12px`   | leg length of each bracket |
+| `--btn-corner-offset` | `-4px`   | resting position. **Negative = outward** (brackets sit outside the box and frame it); **positive = inset** (brackets sit inside the box — used inside tight rails) |
+| `--btn-corner-weight` | `1.5px`  | bracket stroke width |
+| `--corner-color`      | per-variant, fallback `currentColor` | bracket color |
+
+At rest the brackets sit at the offset; on `:hover > [data-corner]` they fade to `opacity: 1` and slide to `translate(0,0)`. Tight containers (segmented groups, filters, sidebar) override `--btn-corner-offset` to a small inset value and `--btn-corner-size` to ~`9px` so the brackets stay within the rail instead of punching through its border.
+
 ### Buttons
 
-6 variants, all defined via CVA in `src/components/ui/button.tsx`:
+`src/components/ui/button.tsx` (`buttonVariants` cva). Every variant **except `link`** carries the four corner brackets (`<ButtonCorners>`; `asChild` uses Radix `<Slottable>` so the spans render inside the slotted child). **10 variants:**
 
-| Variant        | Default style                      | Hover                          |
-|----------------|------------------------------------|--------------------------------|
-| `default`      | `--primary` bg, white text         | bg → transparent, text → primary, border → primary |
-| `outline`      | transparent bg, `--border` border  | bg → foreground, text → background |
-| `ghost`        | transparent, no border             | bg → foreground, text → background |
-| `outlineAccent`| transparent, `--border-2` border   | stays same (accent color)      |
-| `secondary`    | `--secondary` bg                   | opacity 80%                    |
-| `destructive`  | transparent, `--destructive` border| —                              |
-| `link`         | text only, underline on hover      | —                              |
+| Variant | Default style | Hover | `--corner-color` |
+|---|---|---|---|
+| `default`          | `bg-primary` / `text-primary-foreground` | `bg-primary/90` | `--primary` |
+| `secondary`        | `bg-secondary` / `text-secondary-foreground` | `bg-secondary/90` | `--primary` |
+| `outline`          | `bg-background`, `--border` border, `--foreground` text | brackets only | `currentColor` |
+| `outlineAccent`    | `bg-background`, `--border-2` border & text | `bg-border-2/10` | `currentColor` |
+| `ghost`            | transparent, `--foreground` text; `aria-pressed` inverts (fg↔bg) | brackets only | `color-mix(--foreground 30%, transparent)` |
+| `destructive`      | transparent, `--destructive` border & text | `bg-destructive/10` | `currentColor` |
+| `destructiveFilled`| `bg-destructive` / `text-destructive-foreground` | `bg-destructive/90` | `--destructive` |
+| `success`          | `bg-success` / `text-primary-foreground` (¹) | `bg-success/90` | `--success` |
+| `successOutlined`  | transparent, `--success` border & text | `bg-success/10` | `currentColor` |
+| `link`             | transparent, `--primary` text | underline | none (no corners) |
 
-**Key pattern:** hover = **full color inversion** (bg ↔ foreground swap). Not opacity reduction.
+¹ `success` text routes to `--primary-foreground` because `--success-foreground` is transparent in dark mode (known token bug).
 
-Button sizes: `sm` (h-8), `default` (h-9), `lg` (h-10), `icon` (36×36).
+**Hover model:** filled variants darken with `/90`; outlined/ghost variants get a subtle `/10` wash or no bg change — the corner brackets are the primary hover signal. (Note: outlined borders use named utilities like `border-destructive`, not `border-[var(--destructive)]`, because the latter is read by Tailwind v4 as an ambiguous width and loses to the global `* { border-color: var(--border) }`.)
+
+**Sizes** (`size` cva): `sm` h-8 (32px), `default` h-9 (36px), `lg` h-10 (40px), `icon` 36×36px (`size-9`).
+
+### Segmented groups (single-select)
+
+Two implementations of the same look:
+- **`ButtonGroup`** (`button.tsx`) — a bordered inline-flex rail of `Button[default]` (active) + `Button[ghost]` (inactive). The homepage feed-selector pattern, formalized. Inside the group the brackets flip to **inset** (`[data-slot="button-group"]` in globals.css) so they stay within the rail.
+- **`ToggleGroup` / `ToggleGroupItem`** (`src/components/ui/toggle-group.tsx`, Radix-backed, `type="single"`) — the canonical primitive. Inactive item text is muted; on hover it un-mutes and the inset brackets fade in (offset `1px`, size `9px`), with **no background change**. Three variants:
+  - `default` — active item is **filled** (`--primary` bg); container draws a border rail.
+  - `segmentedOutline` — active item is **outlined** (`--primary` border + text); **no** container border (the active item's own outline carries the framing).
+  - `outline` — legacy border-merged style, unchanged for back-compat (track forms).
+  - Sizes: `sm` h-8, `default` h-9, `lg` h-10.
+
+### Filters (multi-select) — `FilterGroup`
+
+`src/components/ui/filter-group.tsx`. A **multi-select** segmented control = a `ToggleGroup` pinned to `type="multiple"` (selection is a `string[]`; several chips stay active at once — a filter, not a tab). It has its **own** variant names so the default really is the default:
+
+| FilterGroup variant | Look | (maps to ToggleGroup) |
+|---|---|---|
+| `default` (the default) | detached outlined **chips** with a gap, wrapping on overflow; selected chip gets a faint `--primary` wash | `ring` |
+| `outline` | outlined-active chips, no container border | `segmentedOutline` |
+
+`FilterItem` takes an optional leading `icon`. Used wherever a row of toggle-buttons filters a list (xplorer search, feeds). In search it is rendered `size="lg"`, full-width, chips `flex-1`. The `ring` (chip) look is defined in globals.css keyed off `[data-slot="filter-item"][data-variant="ring"]`.
+
+### Inputs & search field
+
+- **`Input`** (`src/components/ui/input.tsx`) — base text field: `h-9`, `rounded-md`, 1px `--border`, `--background` bg, `placeholder:text-gray-500`, focus `ring-ring/50 ring-[3px]`. No shadow beyond `shadow-xs`. `aria-invalid` paints the destructive ring.
+- **Search field** (the xplorer searchbar, `src/components/xplorer/search-main.tsx`) is a composition, **not** a separate component: an `Input` in a `relative` wrapper with
+  - a leading **`Telescope`** (lucide) icon at `left-4` — the search glyph matches the sidebar nav (not a magnifier),
+  - a trailing clear button (`X`) shown only while there is text,
+  - `h-10 pl-12` sizing with **conditional right padding** — `pr-12` while typing (room for the clear button), `pr-4` when empty so the typed text reclaims the space (matters on short/narrow screens).
+
+### Tabs
+
+`src/components/ui/tabs.tsx`. Two variants:
+- **default — hairline-extended.** Underline tab bar; the active tab shows a 1px underline (`::after` at `bottom: -1px`) that overflows the container by `4px` per side and scales in horizontally (`scaleX(1)`, 0→280ms). Two vertical anchor legs (corner spans, height ~`7px`, `4px` beyond each side) fade in with a `180ms` delay to anchor it. Counts use `--font-mono`.
+- **`segmented`.** Boxed rail for icon pickers — filled active / ghost inactive + the corner brackets, matching the `ToggleGroup` `default` (segmented) look.
 
 ### Badges
 
@@ -408,6 +469,16 @@ Sidebar collapse toggle: icon-only (`52px`) ↔ expanded (`220px`), animated at 
 
 Portrait: fixed bottom bar `h=64px`, 5 items, glass blur, `--border-2` top border.
 Landscape: fixed left rail `w=64px` instead.
+
+### Navigation primitives (corner-bracket language)
+
+The nav surfaces share the same corner-bracket hover as buttons/filters — brackets fade in on hover with no fill; the active item uses `bg-sidebar-accent` (not brackets) to stay distinct.
+
+- **Sidebar rows** (`SidebarMenuButton`, `src/components/ui/sidebar.tsx`) — host class `.sidebar-corner-host` sets `--btn-corner-offset` (small inset) + `--btn-corner-size: 9px` so the brackets sit inside the tight rail. Works in both expanded (`220px`) and collapsed/icon (`52px`) modes; the collapse context squares rows to icon-only.
+- **Mobile bottom bar** (`nav-mobile-bar.tsx`) — ghost items (icon + ~10px label), height from `--nav-mobile-bar-height` (64px); tablet/landscape switches to a compact left rail (`w-16`).
+- **Dockable floating button** (`useDockableFloatingButton` + `DockSlot`) — a button that rests in a viewport-anchored `DockSlot` placeholder and can be dragged out to float (`position: fixed`), then re-dock. Used by the mixed-collection workspace and the iframes panel.
+
+All four surfaces are demoed in the **Navigation** section of `/[locale]/dev/ui-kit`.
 
 ---
 

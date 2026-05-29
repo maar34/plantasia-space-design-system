@@ -244,7 +244,8 @@ preview/
   spacing-tokens.html          ← radius + spacing tokens
   spacing-shadows.html         ← shadow / elevation system
   entity-frames.html           ← entity frame shapes (clip-paths)
-  components-buttons.html      ← button variants
+  components-buttons.html      ← interactive button variants (11 variants + segmented controls)
+  components-tabs.html         ← hairline tabs (underline hairline + anchoring vertical legs)
   components-badges.html       ← badge variants
   components-cards.html        ← card + FourCornerCard
   components-nav.html          ← header + sidebar chrome
